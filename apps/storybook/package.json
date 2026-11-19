@@ -1,0 +1,22 @@
+{
+  "name": "storybook",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@kunemi-ui/tokens": "workspace:*",
+    "@kunemi-ui/ui": "workspace:*",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@kunemi-ui/typescript-config": "workspace:*",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "type": "registry:ui",
+  "title": "Separator",
+  "description": "Visual or semantic separator divider with horizontal/vertical orientation.",
+  "dependencies": [
+    "@base-ui-components/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/separator.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Separator as BaseSeparator } from \"@base-ui-components/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport const Separator = React.forwardRef<\n  HTMLDivElement,\n  React.ComponentPropsWithoutRef<typeof BaseSeparator>\n>(\n  (\n    { className, orientation = \"horizontal\", ...props },\n    ref\n  ) => (\n    <BaseSeparator\n      ref={ref}\n      orientation={orientation}\n      className={cn(\n        \"shrink-0 bg-[var(--border)]\",\n        orientation === \"horizontal\" ? \"h-[1px] w-full\" : \"h-full w-[1px]\",\n        className\n      )}\n      {...props}\n    />\n  )\n);\nSeparator.displayName = \"Separator\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/separator.tsx"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "extends": "@kunemi-ui/typescript-config/react-library.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src/**/*"]
+}

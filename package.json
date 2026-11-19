@@ -1,0 +1,27 @@
+{
+  "name": "kunemi-ui",
+  "private": true,
+  "packageManager": "pnpm@12.21.0",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "clean": "turbo clean"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "eslint": "^10.15.0",
+    "happy-dom": "^21.0.4",
+    "prettier": "^3.5.0",
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.73.0",
+    "vitest": "^2.1.9"
+  },
+  "engines": {
+    "node": ">=18.19.0",
+    "pnpm": ">=9.0.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme",
+  "type": "registry:theme",
+  "title": "Theme",
+  "description": "Kunemi UI semantic CSS tokens and theme variables.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "styles/theme.css",
+      "content": ":root {\n  --background: #ffffff;\n  --foreground: #09090b;\n  --card: #ffffff;\n  --card-foreground: #09090b;\n  --popover: #ffffff;\n  --popover-foreground: #09090b;\n  --primary: #18181b;\n  --primary-foreground: #fafafa;\n  --secondary: #f4f4f5;\n  --secondary-foreground: #18181b;\n  --muted: #f4f4f5;\n  --muted-foreground: #52525b;\n  --accent: #f4f4f5;\n  --accent-foreground: #18181b;\n  --destructive: #b91c1c;\n  --destructive-foreground: #ffffff;\n  --success: #15803d;\n  --success-foreground: #ffffff;\n  --warning: #b45309;\n  --warning-foreground: #ffffff;\n  --border: #e4e4e7;\n  --input: #e4e4e7;\n  --ring: #18181b;\n  --radius: 0.375rem;\n}\n\n.dark {\n  --background: #09090b;\n  --foreground: #fafafa;\n  --card: #09090b;\n  --card-foreground: #fafafa;\n  --popover: #09090b;\n  --popover-foreground: #fafafa;\n  --primary: #fafafa;\n  --primary-foreground: #18181b;\n  --secondary: #27272a;\n  --secondary-foreground: #fafafa;\n  --muted: #27272a;\n  --muted-foreground: #a1a1aa;\n  --accent: #27272a;\n  --accent-foreground: #fafafa;\n  --destructive: #991b1b;\n  --destructive-foreground: #fafafa;\n  --success: #166534;\n  --success-foreground: #f0fdf4;\n  --warning: #92400e;\n  --warning-foreground: #fffbeb;\n  --border: #27272a;\n  --input: #27272a;\n  --ring: #d4d4d8;\n}\n\n@theme inline {\n  --color-background: var(--background);\n  --color-foreground: var(--foreground);\n  --color-card: var(--card);\n  --color-card-foreground: var(--card-foreground);\n  --color-popover: var(--popover);\n  --color-popover-foreground: var(--popover-foreground);\n  --color-primary: var(--primary);\n  --color-primary-foreground: var(--primary-foreground);\n  --color-secondary: var(--secondary);\n  --color-secondary-foreground: var(--secondary-foreground);\n  --color-muted: var(--muted);\n  --color-muted-foreground: var(--muted-foreground);\n  --color-accent: var(--accent);\n  --color-accent-foreground: var(--accent-foreground);\n  --color-destructive: var(--destructive);\n  --color-destructive-foreground: var(--destructive-foreground);\n  --color-success: var(--success);\n  --color-success-foreground: var(--success-foreground);\n  --color-warning: var(--warning);\n  --color-warning-foreground: var(--warning-foreground);\n  --color-border: var(--border);\n  --color-input: var(--input);\n  --color-ring: var(--ring);\n  --radius-sm: calc(var(--radius) - 2px);\n  --radius-md: var(--radius);\n  --radius-lg: calc(var(--radius) + 2px);\n  --radius-full: 9999px;\n}\n",
+      "type": "registry:theme",
+      "target": "styles/theme.css"
+    }
+  ]
+}

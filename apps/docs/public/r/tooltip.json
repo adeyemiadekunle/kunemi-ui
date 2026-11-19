@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "type": "registry:ui",
+  "title": "Tooltip",
+  "description": "Base UI hover/focus tooltip with positioning and directional arrow.",
+  "dependencies": [
+    "@base-ui-components/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/tooltip.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Tooltip as BaseTooltip } from \"@base-ui-components/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport const TooltipProvider = BaseTooltip.Provider;\nexport const Tooltip = BaseTooltip.Root;\nexport const TooltipTrigger = BaseTooltip.Trigger;\n\nexport const TooltipContent = React.forwardRef<\n  HTMLDivElement,\n  React.ComponentPropsWithoutRef<typeof BaseTooltip.Popup> & {\n    sideOffset?: number;\n  }\n>(({ className, sideOffset = 4, children, ...props }, ref) => (\n  <BaseTooltip.Portal>\n    <BaseTooltip.Positioner sideOffset={sideOffset}>\n      <BaseTooltip.Popup\n        ref={ref}\n        className={cn(\n          \"z-50 overflow-hidden rounded-[var(--radius-sm)] bg-[var(--primary)] px-3 py-1.5 text-xs text-[var(--primary-foreground)] shadow-md select-none\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        <BaseTooltip.Arrow className=\"fill-[var(--primary)]\" />\n      </BaseTooltip.Popup>\n    </BaseTooltip.Positioner>\n  </BaseTooltip.Portal>\n));\n\nTooltipContent.displayName = \"TooltipContent\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/tooltip.tsx"
+    }
+  ]
+}

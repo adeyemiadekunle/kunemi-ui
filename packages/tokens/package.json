@@ -1,0 +1,30 @@
+{
+  "name": "@kunemi-ui/tokens",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "styles"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "default": "./dist/index.js"
+    },
+    "./theme.css": "./styles/theme.css"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@kunemi-ui/typescript-config": "workspace:*",
+    "typescript": "^5.7.0"
+  }
+}

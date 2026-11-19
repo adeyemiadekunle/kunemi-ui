@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "description": "Small status indicator pill with semantic color variants.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/badge.tsx",
+      "content": "import * as React from \"react\";\nimport { cva, type VariantProps } from \"class-variance-authority\";\nimport { cn } from \"@/lib/utils\";\n\nexport const badgeVariants = cva(\n  \"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 select-none\",\n  {\n    variants: {\n      variant: {\n        primary:\n          \"border-transparent bg-[var(--primary)] text-[var(--primary-foreground)] shadow-xs\",\n        secondary:\n          \"border-transparent bg-[var(--secondary)] text-[var(--secondary-foreground)]\",\n        destructive:\n          \"border-transparent bg-[var(--destructive)] text-[var(--destructive-foreground)] shadow-xs\",\n        outline: \"text-[var(--foreground)] border-[var(--border)]\",\n        success:\n          \"border-transparent bg-[var(--success)] text-[var(--success-foreground)] shadow-xs\",\n        warning:\n          \"border-transparent bg-[var(--warning)] text-[var(--warning-foreground)] shadow-xs\",\n      },\n    },\n    defaultVariants: {\n      variant: \"primary\",\n    },\n  }\n);\n\nexport interface BadgeProps\n  extends React.HTMLAttributes<HTMLDivElement>,\n    VariantProps<typeof badgeVariants> {}\n\nexport function Badge({ className, variant, ...props }: BadgeProps) {\n  return (\n    <div className={cn(badgeVariants({ variant }), className)} {...props} />\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/badge.tsx"
+    }
+  ]
+}

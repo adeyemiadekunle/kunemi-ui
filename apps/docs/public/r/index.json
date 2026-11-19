@@ -1,0 +1,103 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "kunemi-ui",
+  "homepage": "https://kunemi-ui.dev",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils",
+      "description": "Shared helper function for merging class names (clsx + tailwind-merge)."
+    },
+    {
+      "name": "theme",
+      "type": "registry:theme",
+      "title": "Theme",
+      "description": "Kunemi UI semantic CSS tokens and theme variables."
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Action control with semantic variants, sizes, and loading state."
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Text input with Base UI field integration and invalid states."
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Accessible form label with optional required indicator."
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Base UI tri-state capable checkbox with custom SVG check indicator."
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Base UI accessible toggle switch with smooth animated thumb."
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Base UI modal dialog with backdrop blur, focus trap, and dismiss close icon."
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Base UI accessible dropdown select with popup positioning and indicators."
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Base UI hover/focus tooltip with positioning and directional arrow."
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Base UI tabbed navigation interface with keyboard arrows support."
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Small status indicator pill with semantic color variants."
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Container component for displaying structured content with header, content, and footer."
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Callout component for user attention with semantic status variants."
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Animated placeholder for displaying loading states."
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Visual or semantic separator divider with horizontal/vertical orientation."
+    }
+  ]
+}

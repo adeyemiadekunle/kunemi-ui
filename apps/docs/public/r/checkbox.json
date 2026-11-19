@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "Base UI tri-state capable checkbox with custom SVG check indicator.",
+  "dependencies": [
+    "@base-ui-components/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/checkbox.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Checkbox as BaseCheckbox } from \"@base-ui-components/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface CheckboxProps\n  extends React.ComponentPropsWithoutRef<typeof BaseCheckbox.Root> {\n  className?: string;\n}\n\nexport const Checkbox = React.forwardRef<HTMLButtonElement, CheckboxProps>(\n  ({ className, ...props }, ref) => {\n    return (\n      <BaseCheckbox.Root\n        ref={ref}\n        className={cn(\n          \"peer h-4 w-4 shrink-0 rounded-[var(--radius-sm)] border border-[var(--primary)] shadow-sm\",\n          \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]\",\n          \"disabled:cursor-not-allowed disabled:opacity-50\",\n          \"data-[checked]:bg-[var(--primary)] data-[checked]:text-[var(--primary-foreground)]\",\n          \"cursor-pointer inline-flex items-center justify-center transition-colors\",\n          className\n        )}\n        {...props}\n      >\n        <BaseCheckbox.Indicator className=\"flex items-center justify-center text-current\">\n          <svg\n            xmlns=\"http://www.w3.org/2000/svg\"\n            viewBox=\"0 0 24 24\"\n            fill=\"none\"\n            stroke=\"currentColor\"\n            strokeWidth=\"3\"\n            strokeLinecap=\"round\"\n            strokeLinejoin=\"round\"\n            className=\"h-3 w-3\"\n            data-testid=\"checkbox-check\"\n          >\n            <polyline points=\"20 6 9 17 4 12\" />\n          </svg>\n        </BaseCheckbox.Indicator>\n      </BaseCheckbox.Root>\n    );\n  }\n);\n\nCheckbox.displayName = \"Checkbox\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/checkbox.tsx"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "label",
+  "type": "registry:ui",
+  "title": "Label",
+  "description": "Accessible form label with optional required indicator.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/label.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface LabelProps\n  extends React.LabelHTMLAttributes<HTMLLabelElement> {\n  requiredIndicator?: boolean;\n}\n\nexport const Label = React.forwardRef<HTMLLabelElement, LabelProps>(\n  ({ className, requiredIndicator = false, children, ...props }, ref) => {\n    return (\n      <label\n        ref={ref}\n        className={cn(\n          \"text-sm font-medium leading-none text-[var(--foreground)] peer-disabled:cursor-not-allowed peer-disabled:opacity-70 select-none\",\n          className\n        )}\n        {...props}\n      >\n        {children}\n        {requiredIndicator && (\n          <span\n            className=\"text-[var(--destructive)] ml-0.5\"\n            aria-hidden=\"true\"\n          >\n            *\n          </span>\n        )}\n      </label>\n    );\n  }\n);\n\nLabel.displayName = \"Label\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/label.tsx"
+    }
+  ]
+}
