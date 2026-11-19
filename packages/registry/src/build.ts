@@ -5,12 +5,13 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT_DIR = path.resolve(__dirname, "../../..");
 const UI_SRC = path.resolve(ROOT_DIR, "packages/ui/src");
+const BLOCKS_SRC = path.resolve(ROOT_DIR, "packages/blocks/src");
 const TOKENS_SRC = path.resolve(ROOT_DIR, "packages/tokens");
 const OUTPUT_DIR = path.resolve(ROOT_DIR, "apps/docs/public/r");
 
 interface ComponentMeta {
   name: string;
-  type: "registry:ui" | "registry:lib" | "registry:theme";
+  type: "registry:ui" | "registry:lib" | "registry:theme" | "registry:block";
   title: string;
   description: string;
   sourceFile: string;
@@ -19,7 +20,29 @@ interface ComponentMeta {
   registryDependencies: string[];
 }
 
-const REGISTRY_COMPONENTS: ComponentMeta[] = [
+const REGISTRY_ITEMS: ComponentMeta[] = [
+  // Lib & Theme
+  {
+    name: "utils",
+    type: "registry:lib",
+    title: "Utils",
+    description: "Shared helper function for merging class names (clsx + tailwind-merge).",
+    sourceFile: path.join(UI_SRC, "lib/utils.ts"),
+    targetPath: "lib/utils.ts",
+    dependencies: ["clsx", "tailwind-merge"],
+    registryDependencies: [],
+  },
+  {
+    name: "theme",
+    type: "registry:theme",
+    title: "Theme",
+    description: "Kunemi UI semantic CSS tokens and theme variables.",
+    sourceFile: path.join(TOKENS_SRC, "styles/theme.css"),
+    targetPath: "styles/theme.css",
+    dependencies: [],
+    registryDependencies: [],
+  },
+  // P0 Components
   {
     name: "button",
     type: "registry:ui",
@@ -160,39 +183,99 @@ const REGISTRY_COMPONENTS: ComponentMeta[] = [
     dependencies: ["@base-ui-components/react"],
     registryDependencies: ["utils"],
   },
+  // P1 Components
+  {
+    name: "table",
+    type: "registry:ui",
+    title: "Table",
+    description: "Responsive table container, headers, rows, cells, and captions.",
+    sourceFile: path.join(UI_SRC, "components/table.tsx"),
+    targetPath: "components/ui/table.tsx",
+    dependencies: [],
+    registryDependencies: ["utils"],
+  },
+  {
+    name: "pagination",
+    type: "registry:ui",
+    title: "Pagination",
+    description: "Accessible pagination bar with previous, next, and active page controls.",
+    sourceFile: path.join(UI_SRC, "components/pagination.tsx"),
+    targetPath: "components/ui/pagination.tsx",
+    dependencies: [],
+    registryDependencies: ["button", "utils"],
+  },
+  {
+    name: "toast",
+    type: "registry:ui",
+    title: "Toast",
+    description: "Base UI notification banner primitive with viewports and actions.",
+    sourceFile: path.join(UI_SRC, "components/toast.tsx"),
+    targetPath: "components/ui/toast.tsx",
+    dependencies: ["@base-ui-components/react"],
+    registryDependencies: ["utils"],
+  },
+  {
+    name: "menu",
+    type: "registry:ui",
+    title: "Menu",
+    description: "Base UI dropdown and context menu with items, groups, and separators.",
+    sourceFile: path.join(UI_SRC, "components/menu.tsx"),
+    targetPath: "components/ui/menu.tsx",
+    dependencies: ["@base-ui-components/react"],
+    registryDependencies: ["utils"],
+  },
+  // Phase 6 AI-Native Components
+  {
+    name: "prompt-input",
+    type: "registry:ui",
+    title: "Prompt Input",
+    description: "Auto-expanding prompt composer with enter-to-submit, loading stop, and action slots.",
+    sourceFile: path.join(UI_SRC, "components/prompt-input.tsx"),
+    targetPath: "components/ui/prompt-input.tsx",
+    dependencies: [],
+    registryDependencies: ["button", "utils"],
+  },
+  {
+    name: "tool-status",
+    type: "registry:ui",
+    title: "Tool Status",
+    description: "Generative AI tool call status tracker (queued, executing, completed, failed).",
+    sourceFile: path.join(UI_SRC, "components/tool-status.tsx"),
+    targetPath: "components/ui/tool-status.tsx",
+    dependencies: [],
+    registryDependencies: ["badge", "utils"],
+  },
+  {
+    name: "approval-dialog",
+    type: "registry:ui",
+    title: "Approval Dialog",
+    description: "Human-in-the-loop modal confirmation for dangerous or irreversible tool operations.",
+    sourceFile: path.join(UI_SRC, "components/approval-dialog.tsx"),
+    targetPath: "components/ui/approval-dialog.tsx",
+    dependencies: ["@base-ui-components/react"],
+    registryDependencies: ["dialog", "button", "utils"],
+  },
+  // Composed Blocks
+  {
+    name: "composed-blocks",
+    type: "registry:block",
+    title: "Composed Application Blocks",
+    description: "Composed patterns including AuthCard, MetricCard, and AIChatBlock.",
+    sourceFile: path.join(BLOCKS_SRC, "index.tsx"),
+    targetPath: "blocks/index.tsx",
+    dependencies: [],
+    registryDependencies: ["button", "card", "input", "label", "checkbox", "badge", "prompt-input", "tool-status"],
+  },
 ];
-
-const UTILS_ITEM: ComponentMeta = {
-  name: "utils",
-  type: "registry:lib",
-  title: "Utils",
-  description: "Shared helper function for merging class names (clsx + tailwind-merge).",
-  sourceFile: path.join(UI_SRC, "lib/utils.ts"),
-  targetPath: "lib/utils.ts",
-  dependencies: ["clsx", "tailwind-merge"],
-  registryDependencies: [],
-};
-
-const THEME_ITEM: ComponentMeta = {
-  name: "theme",
-  type: "registry:theme",
-  title: "Theme",
-  description: "Kunemi UI semantic CSS tokens and theme variables.",
-  sourceFile: path.join(TOKENS_SRC, "styles/theme.css"),
-  targetPath: "styles/theme.css",
-  dependencies: [],
-  registryDependencies: [],
-};
 
 export function buildRegistry() {
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
-  const allItems = [UTILS_ITEM, THEME_ITEM, ...REGISTRY_COMPONENTS];
   const manifestItems: any[] = [];
 
-  for (const item of allItems) {
+  for (const item of REGISTRY_ITEMS) {
     if (!fs.existsSync(item.sourceFile)) {
       throw new Error(`Source file missing: ${item.sourceFile}`);
     }
@@ -200,8 +283,9 @@ export function buildRegistry() {
     let content = fs.readFileSync(item.sourceFile, "utf-8");
 
     // Standardize internal utility imports for consumer workspaces
-    if (item.type === "registry:ui") {
+    if (item.type === "registry:ui" || item.type === "registry:block") {
       content = content.replace(/from\s+["']\.\.\/lib\/utils["']/g, 'from "@/lib/utils"');
+      content = content.replace(/from\s+["']@kunemi-ui\/ui["']/g, 'from "@/components/ui"');
     }
 
     const registryItem = {
@@ -243,7 +327,7 @@ export function buildRegistry() {
   const indexPath = path.join(OUTPUT_DIR, "index.json");
   fs.writeFileSync(indexPath, JSON.stringify(registryIndex, null, 2), "utf-8");
 
-  console.log(`Successfully built ${allItems.length} registry items to ${OUTPUT_DIR}`);
+  console.log(`Successfully built ${REGISTRY_ITEMS.length} registry items to ${OUTPUT_DIR}`);
 }
 
 // Auto-run if executed directly

@@ -98,6 +98,54 @@
       "type": "registry:ui",
       "title": "Separator",
       "description": "Visual or semantic separator divider with horizontal/vertical orientation."
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Responsive table container, headers, rows, cells, and captions."
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Accessible pagination bar with previous, next, and active page controls."
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Base UI notification banner primitive with viewports and actions."
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "Menu",
+      "description": "Base UI dropdown and context menu with items, groups, and separators."
+    },
+    {
+      "name": "prompt-input",
+      "type": "registry:ui",
+      "title": "Prompt Input",
+      "description": "Auto-expanding prompt composer with enter-to-submit, loading stop, and action slots."
+    },
+    {
+      "name": "tool-status",
+      "type": "registry:ui",
+      "title": "Tool Status",
+      "description": "Generative AI tool call status tracker (queued, executing, completed, failed)."
+    },
+    {
+      "name": "approval-dialog",
+      "type": "registry:ui",
+      "title": "Approval Dialog",
+      "description": "Human-in-the-loop modal confirmation for dangerous or irreversible tool operations."
+    },
+    {
+      "name": "composed-blocks",
+      "type": "registry:block",
+      "title": "Composed Application Blocks",
+      "description": "Composed patterns including AuthCard, MetricCard, and AIChatBlock."
     }
   ]
 }

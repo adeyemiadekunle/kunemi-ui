@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "composed-blocks",
+  "type": "registry:block",
+  "title": "Composed Application Blocks",
+  "description": "Composed patterns including AuthCard, MetricCard, and AIChatBlock.",
+  "dependencies": [],
+  "registryDependencies": [
+    "button",
+    "card",
+    "input",
+    "label",
+    "checkbox",
+    "badge",
+    "prompt-input",
+    "tool-status"
+  ],
+  "files": [
+    {
+      "path": "blocks/index.tsx",
+      "content": "import * as React from \"react\";\nimport {\n  Card,\n  CardHeader,\n  CardTitle,\n  CardDescription,\n  CardContent,\n  CardFooter,\n  Button,\n  Input,\n  Label,\n  Checkbox,\n  Badge,\n  PromptInput,\n  ToolStatus,\n} from \"@/components/ui\";\n\nexport interface AuthCardProps {\n  title?: string;\n  description?: string;\n  onSubmit?: (e: React.FormEvent) => void;\n}\n\nexport function AuthCard({\n  title = \"Welcome back\",\n  description = \"Enter your credentials to access your account\",\n  onSubmit,\n}: AuthCardProps) {\n  return (\n    <Card className=\"w-full max-w-md mx-auto\">\n      <CardHeader>\n        <CardTitle>{title}</CardTitle>\n        <CardDescription>{description}</CardDescription>\n      </CardHeader>\n      <form onSubmit={onSubmit}>\n        <CardContent className=\"space-y-4\">\n          <div className=\"space-y-2\">\n            <Label htmlFor=\"auth-email\">Email</Label>\n            <Input\n              id=\"auth-email\"\n              type=\"email\"\n              placeholder=\"name@example.com\"\n              required\n            />\n          </div>\n          <div className=\"space-y-2\">\n            <div className=\"flex items-center justify-between\">\n              <Label htmlFor=\"auth-password\">Password</Label>\n              <a\n                href=\"#forgot\"\n                className=\"text-xs text-[var(--muted-foreground)] hover:text-[var(--foreground)]\"\n              >\n                Forgot password?\n              </a>\n            </div>\n            <Input id=\"auth-password\" type=\"password\" required />\n          </div>\n          <div className=\"flex items-center gap-2\">\n            <Checkbox id=\"remember-me\" />\n            <Label htmlFor=\"remember-me\" className=\"text-xs\">\n              Remember for 30 days\n            </Label>\n          </div>\n        </CardContent>\n        <CardFooter>\n          <Button type=\"submit\" variant=\"primary\" className=\"w-full\">\n            Sign in\n          </Button>\n        </CardFooter>\n      </form>\n    </Card>\n  );\n}\n\nexport interface MetricCardProps {\n  label: string;\n  value: string | number;\n  change?: string;\n  isPositive?: boolean;\n}\n\nexport function MetricCard({\n  label,\n  value,\n  change,\n  isPositive = true,\n}: MetricCardProps) {\n  return (\n    <Card>\n      <CardHeader className=\"flex flex-row items-center justify-between pb-2\">\n        <CardTitle className=\"text-sm font-medium text-[var(--muted-foreground)]\">\n          {label}\n        </CardTitle>\n        {change && (\n          <Badge variant={isPositive ? \"success\" : \"destructive\"}>\n            {change}\n          </Badge>\n        )}\n      </CardHeader>\n      <CardContent>\n        <div className=\"text-2xl font-bold text-[var(--foreground)]\">{value}</div>\n      </CardContent>\n    </Card>\n  );\n}\n\nexport interface AIChatBlockProps {\n  onSendMessage?: (message: string) => void;\n  loading?: boolean;\n}\n\nexport function AIChatBlock({ onSendMessage, loading = false }: AIChatBlockProps) {\n  return (\n    <div className=\"space-y-3 w-full\">\n      <div className=\"flex items-center justify-between px-1\">\n        <span className=\"text-xs font-mono text-[var(--muted-foreground)]\">\n          Autonomous Agent\n        </span>\n        <Badge variant=\"primary\">Online</Badge>\n      </div>\n\n      <ToolStatus\n        toolName=\"semantic_search\"\n        state=\"succeeded\"\n        durationMs={180}\n      />\n\n      <PromptInput\n        placeholder=\"Instruct the assistant...\"\n        loading={loading}\n        onSubmitPrompt={onSendMessage}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:block",
+      "target": "blocks/index.tsx"
+    }
+  ]
+}

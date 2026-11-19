@@ -202,6 +202,9 @@ importers:
 
   apps/docs:
     dependencies:
+      '@kunemi-ui/blocks':
+        specifier: workspace:*
+        version: link:../../packages/blocks
       '@kunemi-ui/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens

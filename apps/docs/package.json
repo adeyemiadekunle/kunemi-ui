@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@kunemi-ui/blocks": "workspace:*",
     "@kunemi-ui/tokens": "workspace:*",
     "@kunemi-ui/ui": "workspace:*",
     "next": "^15.1.0",

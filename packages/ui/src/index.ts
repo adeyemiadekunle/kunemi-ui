@@ -17,3 +17,14 @@ export * from "./components/card";
 export * from "./components/alert";
 export * from "./components/skeleton";
 export * from "./components/separator";
+
+// P1 Components
+export * from "./components/table";
+export * from "./components/pagination";
+export * from "./components/toast";
+export * from "./components/menu";
+
+// Phase 6 AI-Native Components
+export * from "./components/prompt-input";
+export * from "./components/tool-status";
+export * from "./components/approval-dialog";

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "prompt-input",
+  "type": "registry:ui",
+  "title": "Prompt Input",
+  "description": "Auto-expanding prompt composer with enter-to-submit, loading stop, and action slots.",
+  "dependencies": [],
+  "registryDependencies": [
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/prompt-input.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { Button } from \"./button\";\n\nexport interface PromptInputProps\n  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {\n  onSubmitPrompt?: (value: string) => void;\n  loading?: boolean;\n  onStop?: () => void;\n  actions?: React.ReactNode;\n}\n\nexport const PromptInput = React.forwardRef<HTMLTextAreaElement, PromptInputProps>(\n  (\n    {\n      className,\n      value,\n      defaultValue,\n      onChange,\n      onSubmitPrompt,\n      loading = false,\n      onStop,\n      actions,\n      placeholder = \"Ask anything or type a prompt...\",\n      disabled,\n      ...props\n    },\n    ref\n  ) => {\n    const [internalValue, setInternalValue] = React.useState(\n      defaultValue !== undefined ? String(defaultValue) : \"\"\n    );\n    const currentValue = value !== undefined ? String(value) : internalValue;\n\n    const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {\n      if (e.key === \"Enter\" && !e.shiftKey) {\n        e.preventDefault();\n        if (currentValue.trim() && onSubmitPrompt && !loading && !disabled) {\n          onSubmitPrompt(currentValue.trim());\n        }\n      }\n    };\n\n    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {\n      if (value === undefined) {\n        setInternalValue(e.target.value);\n      }\n      onChange?.(e);\n    };\n\n    const handleFormSubmit = () => {\n      if (currentValue.trim() && onSubmitPrompt && !loading && !disabled) {\n        onSubmitPrompt(currentValue.trim());\n      }\n    };\n\n    return (\n      <div\n        className={cn(\n          \"relative flex flex-col w-full rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--background)] p-3 shadow-sm transition-colors\",\n          \"focus-within:border-[var(--ring)] focus-within:ring-2 focus-within:ring-[var(--ring)]/20\",\n          className\n        )}\n      >\n        <textarea\n          ref={ref}\n          value={currentValue}\n          onChange={handleChange}\n          onKeyDown={handleKeyDown}\n          placeholder={placeholder}\n          disabled={disabled}\n          rows={3}\n          className=\"w-full resize-none bg-transparent text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] focus:outline-none disabled:cursor-not-allowed disabled:opacity-50\"\n          {...props}\n        />\n\n        <div className=\"flex items-center justify-between pt-2 border-t border-[var(--border)]/40 mt-2\">\n          <div className=\"flex items-center gap-2\">{actions}</div>\n\n          <div className=\"flex items-center gap-2\">\n            {loading ? (\n              <Button\n                type=\"button\"\n                size=\"sm\"\n                variant=\"outline\"\n                onClick={onStop}\n                aria-label=\"Stop generating\"\n              >\n                <span className=\"h-2 w-2 rounded-xs bg-[var(--destructive)] mr-1.5\" />\n                Stop\n              </Button>\n            ) : (\n              <Button\n                type=\"button\"\n                size=\"sm\"\n                variant=\"primary\"\n                disabled={!currentValue.trim() || disabled}\n                onClick={handleFormSubmit}\n                aria-label=\"Submit prompt\"\n              >\n                Send\n              </Button>\n            )}\n          </div>\n        </div>\n      </div>\n    );\n  }\n);\n\nPromptInput.displayName = \"PromptInput\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/prompt-input.tsx"
+    }
+  ]
+}

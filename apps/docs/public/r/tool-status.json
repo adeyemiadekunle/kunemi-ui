@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tool-status",
+  "type": "registry:ui",
+  "title": "Tool Status",
+  "description": "Generative AI tool call status tracker (queued, executing, completed, failed).",
+  "dependencies": [],
+  "registryDependencies": [
+    "badge",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/tool-status.tsx",
+      "content": "import * as React from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { Badge } from \"./badge\";\n\nexport type ToolExecutionState =\n  | \"queued\"\n  | \"running\"\n  | \"succeeded\"\n  | \"failed\"\n  | \"cancelled\";\n\nexport interface ToolStatusProps extends React.HTMLAttributes<HTMLDivElement> {\n  toolName: string;\n  state: ToolExecutionState;\n  durationMs?: number;\n  error?: string;\n}\n\nexport function ToolStatus({\n  toolName,\n  state,\n  durationMs,\n  error,\n  className,\n  ...props\n}: ToolStatusProps) {\n  const stateBadgeMap: Record<\n    ToolExecutionState,\n    { variant: \"primary\" | \"secondary\" | \"success\" | \"destructive\" | \"warning\"; label: string }\n  > = {\n    queued: { variant: \"secondary\", label: \"Queued\" },\n    running: { variant: \"primary\", label: \"Executing\" },\n    succeeded: { variant: \"success\", label: \"Completed\" },\n    failed: { variant: \"destructive\", label: \"Failed\" },\n    cancelled: { variant: \"warning\", label: \"Cancelled\" },\n  };\n\n  const current = stateBadgeMap[state];\n\n  return (\n    <div\n      className={cn(\n        \"flex flex-col gap-1.5 p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--muted)]/40 text-xs font-mono\",\n        className\n      )}\n      {...props}\n    >\n      <div className=\"flex items-center justify-between\">\n        <span className=\"font-semibold text-[var(--foreground)]\">{toolName}</span>\n        <div className=\"flex items-center gap-2\">\n          {durationMs !== undefined && (\n            <span className=\"text-[var(--muted-foreground)]\">{durationMs}ms</span>\n          )}\n          <Badge variant={current.variant}>{current.label}</Badge>\n        </div>\n      </div>\n      {error && (\n        <div className=\"text-[var(--destructive)] text-[11px] font-sans pt-1\">\n          {error}\n        </div>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/tool-status.tsx"
+    }
+  ]
+}

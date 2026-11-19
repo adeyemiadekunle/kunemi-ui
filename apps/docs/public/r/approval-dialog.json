@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "approval-dialog",
+  "type": "registry:ui",
+  "title": "Approval Dialog",
+  "description": "Human-in-the-loop modal confirmation for dangerous or irreversible tool operations.",
+  "dependencies": [
+    "@base-ui-components/react"
+  ],
+  "registryDependencies": [
+    "dialog",
+    "button",
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/approval-dialog.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport {\n  Dialog,\n  DialogTrigger,\n  DialogPopup,\n  DialogHeader,\n  DialogTitle,\n  DialogDescription,\n  DialogFooter,\n  DialogClose,\n} from \"./dialog\";\nimport { Button } from \"./button\";\n\nexport interface ApprovalDialogProps {\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  title: string;\n  description: string;\n  actionName: string;\n  isDestructive?: boolean;\n  onApprove: () => void;\n  onReject?: () => void;\n  loading?: boolean;\n  trigger?: React.ReactNode;\n  children?: React.ReactNode;\n}\n\nexport function ApprovalDialog({\n  open,\n  onOpenChange,\n  title,\n  description,\n  actionName,\n  isDestructive = false,\n  onApprove,\n  onReject,\n  loading = false,\n  trigger,\n  children,\n}: ApprovalDialogProps) {\n  return (\n    <Dialog open={open} onOpenChange={onOpenChange}>\n      {trigger && <DialogTrigger>{trigger}</DialogTrigger>}\n      <DialogPopup>\n        <DialogHeader>\n          <DialogTitle>{title}</DialogTitle>\n          <DialogDescription>{description}</DialogDescription>\n        </DialogHeader>\n\n        {children && <div className=\"py-2 text-sm\">{children}</div>}\n\n        <DialogFooter>\n          <DialogClose\n            render={\n              <Button\n                type=\"button\"\n                variant=\"outline\"\n                disabled={loading}\n                onClick={onReject}\n              >\n                Cancel\n              </Button>\n            }\n          />\n          <Button\n            type=\"button\"\n            variant={isDestructive ? \"destructive\" : \"primary\"}\n            loading={loading}\n            onClick={onApprove}\n          >\n            {actionName}\n          </Button>\n        </DialogFooter>\n      </DialogPopup>\n    </Dialog>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/ui/approval-dialog.tsx"
+    }
+  ]
+}
