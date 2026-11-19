@@ -297,6 +297,12 @@ importers:
 
   apps/storybook:
     dependencies:
+      '@kunemi-ui/blocks':
+        specifier: workspace:*
+        version: link:../../packages/blocks
+      '@kunemi-ui/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@kunemi-ui/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens

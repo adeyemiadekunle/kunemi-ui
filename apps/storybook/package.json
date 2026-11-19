@@ -8,6 +8,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@kunemi-ui/blocks": "workspace:*",
+    "@kunemi-ui/icons": "workspace:*",
     "@kunemi-ui/tokens": "workspace:*",
     "@kunemi-ui/ui": "workspace:*",
     "react": "^19.0.0",
