@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+@source "../../../packages/ui/src";
+@source "../../../packages/blocks/src";
+@source "../../../packages/icons/src";

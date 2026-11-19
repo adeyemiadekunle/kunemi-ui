@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@kunemi-ui/behaviors": "workspace:*",
     "@kunemi-ui/blocks": "workspace:*",
+    "@kunemi-ui/icons": "workspace:*",
     "@kunemi-ui/tokens": "workspace:*",
     "@kunemi-ui/ui": "workspace:*",
     "next": "^15.1.0",
@@ -20,6 +22,7 @@
   "devDependencies": {
     "@kunemi-ui/registry": "workspace:*",
     "@kunemi-ui/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.5",
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",

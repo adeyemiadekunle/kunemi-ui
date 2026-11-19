@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@kunemi-ui/typescript-config": "workspace:*",
+    "@tailwindcss/postcss": "^4.3.5",
     "@types/node": "^20.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
