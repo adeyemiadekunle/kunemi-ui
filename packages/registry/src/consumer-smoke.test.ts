@@ -31,7 +31,7 @@ describe("Consumer Distribution Smoke Test (shadcn Registry)", () => {
   });
 
   it("verifies all registered items have physical manifest files", () => {
-    expect(indexJson.items.length).toBe(24);
+    expect(indexJson.items.length).toBe(25);
 
     for (const item of indexJson.items) {
       const manifestPath = path.join(OUTPUT_DIR, `${item.name}.json`);

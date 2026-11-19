@@ -44,6 +44,16 @@ const REGISTRY_ITEMS: ComponentMeta[] = [
   },
   // P0 Components
   {
+    name: "accordion",
+    type: "registry:ui",
+    title: "Accordion",
+    description: "A vertically stacked set of interactive headings that each reveal an associated section of content.",
+    sourceFile: path.join(UI_SRC, "components/accordion.tsx"),
+    targetPath: "components/ui/accordion.tsx",
+    dependencies: ["@base-ui-components/react"],
+    registryDependencies: ["utils"],
+  },
+  {
     name: "button",
     type: "registry:ui",
     title: "Button",

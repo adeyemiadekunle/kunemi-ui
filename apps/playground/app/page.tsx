@@ -4,22 +4,6 @@ import * as React from "react";
 import {
   Button,
   Input,
-  Label,
-  Checkbox,
-  Switch,
-  Dialog,
-  DialogTrigger,
-  DialogPortal,
-  DialogBackdrop,
-  DialogPopup,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
   Tabs,
   TabsList,
   TabsTrigger,
@@ -30,36 +14,10 @@ import {
   CardDescription,
   CardContent,
   Badge,
-  Alert,
-  AlertTitle,
-  AlertDescription,
   PromptInput,
   ToolStatus,
   ApprovalDialog,
   ThemeToggle,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableHead,
-  TableCell,
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationPrevious,
-  PaginationNext,
-  Menu,
-  MenuTrigger,
-  MenuContent,
-  MenuItem,
-  MenuSeparator,
-  Skeleton,
-  Separator,
 } from "@kunemi-ui/ui";
 import { AuthCard, MetricCard, AIChatBlock } from "@kunemi-ui/blocks";
 import {
@@ -82,10 +40,15 @@ import {
   CheckIcon,
   ChevronRightIcon,
   ChevronDownIcon,
-  InfoIcon,
 } from "@kunemi-ui/icons";
+import { COMPONENTS_CATALOG } from "./components-data";
 
 export default function PlaygroundPage() {
+  // Component Docs (shadcn-style) state
+  const [selectedCompSlug, setSelectedCompSlug] = React.useState("accordion");
+  const [compTab, setCompTab] = React.useState<"preview" | "code">("preview");
+  const [copiedKey, setCopiedKey] = React.useState<string | null>(null);
+
   // Stream Simulator State
   const stream = useStreamResponse({ throttleLiveIntervalMs: 300 });
   const [streamInput, setStreamInput] = React.useState("Kunemi UI is accessible, fast, and AI-native.");
@@ -363,175 +326,196 @@ export default function PlaygroundPage() {
           </Card>
         </TabsContent>
 
-        {/* Tab 3: Core Primitives */}
+        {/* Tab 3: Core Primitives & Component Docs (shadcn-style) */}
         <TabsContent value="components" className="space-y-6 pt-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Base UI Primitives Sandbox</CardTitle>
-              <CardDescription>
-                Form controls, dialogs, selects, and status indicators styled with semantic tokens.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="flex flex-wrap gap-3">
-                <Button>Primary</Button>
-                <Button variant="secondary">Secondary</Button>
-                <Button variant="outline">Outline</Button>
-                <Button variant="ghost">Ghost</Button>
-                <Button variant="destructive">Destructive</Button>
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Component Picker Sidebar */}
+            <div className="w-full md:w-56 shrink-0 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                  Components ({COMPONENTS_CATALOG.length})
+                </span>
+                <Badge variant="outline" className="text-[10px]">shadcn style</Badge>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="demo-input" requiredIndicator>Input with Label</Label>
-                  <Input id="demo-input" placeholder="Type here..." />
-                </div>
-                <div className="space-y-2">
-                  <Label>Dropdown Select</Label>
-                  <Select defaultValue="light">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Theme" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="light">Light Mode</SelectItem>
-                      <SelectItem value="dark">Dark Mode</SelectItem>
-                      <SelectItem value="system">System Default</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="flex flex-wrap md:flex-col gap-1 max-h-[480px] overflow-y-auto pr-1">
+                {COMPONENTS_CATALOG.map((c) => (
+                  <button
+                    key={c.slug}
+                    type="button"
+                    onClick={() => {
+                      setSelectedCompSlug(c.slug);
+                      setCompTab("preview");
+                    }}
+                    className={`text-left px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors cursor-pointer flex items-center justify-between ${
+                      selectedCompSlug === c.slug
+                        ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                    }`}
+                  >
+                    <span>{c.title}</span>
+                    <span className="text-[10px] opacity-70">{c.category[0]}</span>
+                  </button>
+                ))}
               </div>
+            </div>
 
-              <div className="flex items-center gap-6">
-                <div className="flex items-center gap-2">
-                  <Checkbox id="cb1" defaultChecked />
-                  <Label htmlFor="cb1">Remember setting</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Switch id="sw1" defaultChecked />
-                  <Label htmlFor="sw1">Hardware acceleration</Label>
-                </div>
-              </div>
+            {/* Component Inspector View */}
+            {(() => {
+              const activeComp =
+                COMPONENTS_CATALOG.find((c) => c.slug === selectedCompSlug) ??
+                COMPONENTS_CATALOG[0];
 
-              <Alert>
-                <InfoIcon className="h-4 w-4" />
-                <AlertTitle>Component Certified</AlertTitle>
-                <AlertDescription>
-                  All components use semantic CSS tokens with certified WCAG 2.2 AA contrast pairings.
-                </AlertDescription>
-              </Alert>
+              const copyToClip = (text: string, key: string) => {
+                navigator.clipboard?.writeText(text);
+                setCopiedKey(key);
+                setTimeout(() => setCopiedKey(null), 2000);
+              };
 
-              <Separator />
-
-              {/* Overlays & Interactive Navigation */}
-              <div className="flex flex-wrap items-center gap-4">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger render={<Button variant="secondary">Hover for Tooltip</Button>} />
-                    <TooltipContent>
-                      Keyboard and pointer accessible floating tooltip
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-
-                <Menu>
-                  <MenuTrigger render={<Button variant="outline">Actions Menu</Button>} />
-                  <MenuContent>
-                    <MenuItem onClick={() => alert("Exported JSON")}>Export as JSON</MenuItem>
-                    <MenuItem onClick={() => alert("Copied URL")}>Copy Direct Link</MenuItem>
-                    <MenuSeparator />
-                    <MenuItem className="text-[var(--destructive)]" onClick={() => alert("Purged")}>
-                      Purge Cache
-                    </MenuItem>
-                  </MenuContent>
-                </Menu>
-
-                <Dialog>
-                  <DialogTrigger render={<Button variant="outline">Test Modal Dialog</Button>} />
-                  <DialogPortal>
-                    <DialogBackdrop />
-                    <DialogPopup>
-                      <DialogTitle>Base UI Dialog</DialogTitle>
-                      <DialogDescription>
-                        Focus is trapped, ESC closes, and backdrop clicking dismisses appropriately.
-                      </DialogDescription>
-                      <div className="mt-4 flex justify-end">
-                        <DialogClose render={<Button size="sm">Dismiss</Button>} />
+              return (
+                <div className="flex-1 space-y-6">
+                  {/* Header */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/40 pb-4">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h2 className="text-2xl font-bold tracking-tight">{activeComp.title}</h2>
+                        <Badge variant="outline">{activeComp.category}</Badge>
+                        <Badge variant="secondary" className="text-[10px]">WCAG 2.2 AA</Badge>
                       </div>
-                    </DialogPopup>
-                  </DialogPortal>
-                </Dialog>
-              </div>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {activeComp.description}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <a
+                        href="http://localhost:3000/docs/components"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 border border-border/40 px-2.5 py-1 rounded-md hover:bg-muted transition-colors"
+                      >
+                        <span>Full Docs Page ↗</span>
+                      </a>
+                    </div>
+                  </div>
 
-              <Separator />
+                  {/* Showcase Box (Preview vs Code Tabs) */}
+                  <div className="rounded-xl border border-border/40 bg-card overflow-hidden shadow-xs">
+                    <div className="flex items-center justify-between border-b border-border/40 px-4 py-2 bg-muted/20">
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setCompTab("preview")}
+                          className={`px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                            compTab === "preview"
+                              ? "bg-background text-foreground shadow-2xs"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          Preview
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setCompTab("code")}
+                          className={`px-3 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
+                            compTab === "code"
+                              ? "bg-background text-foreground shadow-2xs"
+                              : "text-muted-foreground hover:text-foreground"
+                          }`}
+                        >
+                          Code
+                        </button>
+                      </div>
 
-              {/* Data Table & Pagination */}
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold">Accessible Data Table</h4>
-                <div className="border rounded-[var(--radius-md)] overflow-hidden">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Service</TableHead>
-                        <TableHead>Environment</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead className="text-right">Latency</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      <TableRow>
-                        <TableCell className="font-medium">Inference Gateway</TableCell>
-                        <TableCell>Production (US-East)</TableCell>
-                        <TableCell><Badge variant="success">Healthy</Badge></TableCell>
-                        <TableCell className="text-right">18ms</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">Vector Index</TableCell>
-                        <TableCell>Production (EU-Central)</TableCell>
-                        <TableCell><Badge variant="success">Healthy</Badge></TableCell>
-                        <TableCell className="text-right">24ms</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell className="font-medium">Worker Container</TableCell>
-                        <TableCell>Staging</TableCell>
-                        <TableCell><Badge variant="secondary">Idle</Badge></TableCell>
-                        <TableCell className="text-right">4ms</TableCell>
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                </div>
-                <Pagination>
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious href="#" />
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#" isActive>1</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationLink href="#">2</PaginationLink>
-                    </PaginationItem>
-                    <PaginationItem>
-                      <PaginationNext href="#" />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </div>
+                      {/* Copy Code Button */}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          copyToClip(
+                            compTab === "code" ? activeComp.usageCode : activeComp.sourceCode,
+                            "play-showcase-code"
+                          )
+                        }
+                        className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-md border border-border/40 hover:bg-muted text-muted-foreground hover:text-foreground transition-colors cursor-pointer shadow-2xs"
+                      >
+                        {copiedKey === "play-showcase-code" ? (
+                          <>
+                            <CheckIcon size={12} className="text-emerald-500" />
+                            <span className="text-emerald-500">Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <CopyIcon size={12} />
+                            <span>Copy Code</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
 
-              <Separator />
+                    {compTab === "preview" ? (
+                      <div className="min-h-[260px] flex items-center justify-center p-8 bg-background/50">
+                        {activeComp.renderPreview()}
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-muted/20 overflow-x-auto text-xs font-mono max-h-96 overflow-y-auto">
+                        <pre className="text-foreground leading-relaxed">
+                          <code>{activeComp.usageCode}</code>
+                        </pre>
+                      </div>
+                    )}
+                  </div>
 
-              {/* Skeleton Loaders */}
-              <div className="space-y-3">
-                <h4 className="text-sm font-semibold">Skeleton Loaders</h4>
-                <div className="flex items-center space-x-4">
-                  <Skeleton className="h-12 w-12 rounded-full" />
-                  <div className="space-y-2 flex-1">
-                    <Skeleton className="h-4 w-3/4" />
-                    <Skeleton className="h-4 w-1/2" />
+                  {/* CLI Installation Bar */}
+                  <div className="space-y-2">
+                    <h3 className="text-sm font-semibold">CLI Installation</h3>
+                    <div className="flex items-center justify-between rounded-lg border border-border/60 bg-muted/30 px-3.5 py-2 font-mono text-xs shadow-2xs">
+                      <span className="truncate text-foreground select-all">{activeComp.cliCommand}</span>
+                      <button
+                        type="button"
+                        onClick={() => copyToClip(activeComp.cliCommand, "play-cli-cmd")}
+                        className="ml-3 text-muted-foreground hover:text-foreground cursor-pointer shrink-0"
+                      >
+                        {copiedKey === "play-cli-cmd" ? (
+                          <CheckIcon size={14} className="text-emerald-500" />
+                        ) : (
+                          <CopyIcon size={14} />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Manual Component Source Code */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-sm font-semibold">
+                        Component Source ({activeComp.sourcePath})
+                      </h3>
+                      <button
+                        type="button"
+                        onClick={() => copyToClip(activeComp.sourceCode, "play-comp-source")}
+                        className="inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-md border border-border/40 hover:bg-muted text-foreground transition-colors cursor-pointer"
+                      >
+                        {copiedKey === "play-comp-source" ? (
+                          <>
+                            <CheckIcon size={12} className="text-emerald-500" />
+                            <span className="text-emerald-500">Copied Source!</span>
+                          </>
+                        ) : (
+                          <>
+                            <CopyIcon size={12} />
+                            <span>Copy Source</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <div className="rounded-xl border border-border/40 bg-muted/20 p-4 overflow-x-auto text-xs font-mono max-h-72 overflow-y-auto">
+                      <pre className="text-foreground leading-relaxed">
+                        <code>{activeComp.sourceCode}</code>
+                      </pre>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              );
+            })()}
+          </div>
         </TabsContent>
 
         {/* Tab 4: Composed Blocks */}

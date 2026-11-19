@@ -3,6 +3,7 @@ export * from "./providers/theme-provider";
 export * from "./components/theme-toggle";
 
 // P0 MVP Components
+export * from "./components/accordion";
 export * from "./components/button";
 export * from "./components/input";
 export * from "./components/label";

@@ -91,11 +91,12 @@ export default function HomePage() {
               </span>
               <span>Kunemi UI</span>
               <span className="rounded-full bg-muted/60 px-2 py-0.5 text-[10px] font-mono text-muted-foreground border border-border/50">
-                v0.1.1
+                v0.1.2
               </span>
             </a>
 
             <nav className="hidden md:flex items-center gap-5 text-sm font-medium text-muted-foreground">
+              <a href="/docs/components" className="hover:text-foreground transition-colors font-medium text-primary">Components</a>
               <a href="#primitives" className="hover:text-foreground transition-colors">Primitives</a>
               <a href="#ai-native" className="hover:text-foreground transition-colors">AI Suite</a>
               <a href="#blocks" className="hover:text-foreground transition-colors">Blocks</a>
@@ -155,9 +156,9 @@ export default function HomePage() {
 
           {/* Quick Install Bar & CTA Pair */}
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-            <a href="#primitives">
+            <a href="/docs/components">
               <Button size="md" className="rounded-full px-5 h-9 shadow-xs">
-                Explore Primitives
+                Explore Components & Code
               </Button>
             </a>
             <div className="flex items-center rounded-full border border-border/60 bg-muted/40 hover:bg-muted/60 px-3.5 py-1.5 font-mono text-xs text-foreground transition-colors shadow-2xs">

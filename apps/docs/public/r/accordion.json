@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion",
+  "type": "registry:ui",
+  "title": "Accordion",
+  "description": "A vertically stacked set of interactive headings that each reveal an associated section of content.",
+  "dependencies": [
+    "@base-ui-components/react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "components/ui/accordion.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Accordion as BaseAccordion } from \"@base-ui-components/react\";\nimport { cn } from \"@/lib/utils\";\n\nexport const Accordion = BaseAccordion.Root;\n\nexport const AccordionItem = React.forwardRef<\n  HTMLDivElement,\n  React.ComponentPropsWithoutRef<typeof BaseAccordion.Item>\n>(({ className, ...props }, ref) => (\n  <BaseAccordion.Item\n    ref={ref}\n    className={cn(\"border-b border-border/40\", className)}\n    {...props}\n  />\n));\nAccordionItem.displayName = \"AccordionItem\";\n\nexport const AccordionHeader = BaseAccordion.Header;\n\nexport const AccordionTrigger = React.forwardRef<\n  HTMLButtonElement,\n  React.ComponentPropsWithoutRef<typeof BaseAccordion.Trigger>\n>(({ className, children, ...props }, ref) => (\n  <BaseAccordion.Header className=\"flex\">\n    <BaseAccordion.Trigger\n      ref={ref}\n      className={cn(\n        \"flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline text-left cursor-pointer\",\n        \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-1\",\n        \"[&[data-panel-open]>svg]:rotate-180\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      <svg\n        xmlns=\"http://www.w3.org/2000/svg\"\n        viewBox=\"0 0 24 24\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        strokeWidth=\"2\"\n        strokeLinecap=\"round\"\n        strokeLinejoin=\"round\"\n        className=\"size-4 shrink-0 text-muted-foreground transition-transform duration-200\"\n        aria-hidden=\"true\"\n      >\n        <path d=\"m6 9 6 6 6-6\" />\n      </svg>\n    </BaseAccordion.Trigger>\n  </BaseAccordion.Header>\n));\nAccordionTrigger.displayName = \"AccordionTrigger\";\n\nexport const AccordionContent = React.forwardRef<\n  HTMLDivElement,\n  React.ComponentPropsWithoutRef<typeof BaseAccordion.Panel>\n>(({ className, children, ...props }, ref) => (\n  <BaseAccordion.Panel\n    ref={ref}\n    className={cn(\n      \"overflow-hidden text-sm text-muted-foreground transition-all pb-4 pt-0\",\n      className\n    )}\n    {...props}\n  >\n    {children}\n  </BaseAccordion.Panel>\n));\nAccordionContent.displayName = \"AccordionContent\";\n",
+      "type": "registry:ui",
+      "target": "components/ui/accordion.tsx"
+    }
+  ]
+}
