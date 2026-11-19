@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run verification
+        run: |
+          pnpm typecheck
+          pnpm lint
+          pnpm test
+          pnpm build
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Kunemi UI ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          body: |
+            ## Kunemi UI ${{ github.ref_name }}
+
+            Accessible, extensible, and AI-native React design system built on **Base UI** primitives, styled with **Tailwind CSS v4** and semantic CSS tokens, and distributed via a **shadcn-compatible registry**.
+
+            ### Highlights
+            - **WCAG 2.2 AA Certified Tokens**: Contrast ratio verified $\ge 4.5:1$ across light and dark themes.
+            - **14 P0 Core Primitives**: `Button`, `Input`, `Label`, `Checkbox`, `Switch`, `Dialog`, `Select`, `Tooltip`, `Tabs`, `Badge`, `Card`, `Alert`, `Skeleton`, `Separator`.
+            - **4 P1 Expansion Primitives**: `Table`, `Pagination`, `Toast`, `Menu`.
+            - **AI-Native Interface Suite**: `PromptInput`, `ToolStatus` (lifecycle states), `ApprovalDialog` (consequential action protection).
+            - **Composed Blocks**: `AuthCard`, `MetricCard`, `AIChatBlock`.
+            - **Accessible Icons**: 20+ SVG icon wrappers with zero third-party dependencies (`@kunemi-ui/icons`).
+            - **Isolated Behaviors**: `useSelectionModel`, `useStreamResponse`, `useTreeNavigation` (`@kunemi-ui/behaviors`).
+            - **shadcn Registry**: 24 component manifests hosted at `https://kunemi-ui.dev/r/*.json`.
+            - **AI Discovery**: Machine-readable `llms.txt` and `llms-full.txt` endpoints for coding agents.
