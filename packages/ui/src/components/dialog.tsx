@@ -16,7 +16,7 @@ export const DialogBackdrop = React.forwardRef<
   <BaseDialog.Backdrop
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/50 backdrop-blur-xs transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0",
+      "fixed inset-0 z-50 bg-black/60 backdrop-blur-sm transition-opacity duration-150 data-[ending-style]:opacity-0 data-[starting-style]:opacity-0",
       className
     )}
     {...props}
@@ -33,7 +33,7 @@ export const DialogPopup = React.forwardRef<
     <BaseDialog.Popup
       ref={ref}
       className={cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--border)] bg-[var(--background)] p-6 shadow-lg duration-200 rounded-[var(--radius-lg)]",
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--border)] border-border/50 bg-[var(--background)]/95 backdrop-blur-sm p-6 shadow-2xl duration-200 rounded-xl",
         "data-[ending-style]:scale-95 data-[ending-style]:opacity-0 data-[starting-style]:scale-95 data-[starting-style]:opacity-0",
         className
       )}

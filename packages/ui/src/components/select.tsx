@@ -39,9 +39,9 @@ export const SelectTrigger = React.forwardRef<
   <BaseSelect.Trigger
     ref={ref}
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-[var(--radius-md)] border border-[var(--input)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] shadow-xs",
-      "placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-2 focus:ring-offset-[var(--background)]",
-      "disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer",
+      "flex h-9 w-full items-center justify-between rounded-[var(--radius-md)] border border-[var(--input)] border-input/60 bg-[var(--background)] px-3 py-1 text-sm text-[var(--foreground)] shadow-xs",
+      "placeholder:text-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--ring)] focus:ring-offset-1 focus:ring-offset-[var(--background)]",
+      "disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer active:translate-y-px transition-colors",
       className
     )}
     {...props}
@@ -76,7 +76,7 @@ export const SelectContent = React.forwardRef<
       <BaseSelect.Popup
         ref={ref}
         className={cn(
-          "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--popover)] text-[var(--popover-foreground)] shadow-md",
+          "relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-lg border border-[var(--border)] border-border/50 bg-[var(--popover)] text-[var(--popover-foreground)] shadow-lg",
           className
         )}
         {...props}

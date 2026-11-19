@@ -13,7 +13,7 @@ export const TabsList = React.forwardRef<
   <BaseTabs.List
     ref={ref}
     className={cn(
-      "inline-flex h-10 items-center justify-center rounded-[var(--radius-md)] bg-[var(--muted)] p-1 text-[var(--muted-foreground)]",
+      "inline-flex h-9 items-center justify-center rounded-lg bg-[var(--muted)] p-1 text-[var(--muted-foreground)]",
       className
     )}
     {...props}
@@ -28,10 +28,10 @@ export const TabsTrigger = React.forwardRef<
   <BaseTabs.Tab
     ref={ref}
     className={cn(
-      "inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-sm)] px-3 py-1.5 text-sm font-medium transition-all",
-      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
+      "inline-flex items-center justify-center whitespace-nowrap rounded-[var(--radius-sm)] px-3 py-1 text-xs sm:text-sm font-medium transition-all",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--background)]",
       "disabled:pointer-events-none disabled:opacity-50",
-      "data-[selected]:bg-[var(--background)] data-[selected]:text-[var(--foreground)] data-[selected]:shadow-xs cursor-pointer",
+      "data-[selected]:bg-[var(--background)] data-[selected]:text-[var(--foreground)] data-[selected]:shadow-xs cursor-pointer active:translate-y-px",
       className
     )}
     {...props}

@@ -17,9 +17,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         ref={ref}
         aria-invalid={invalid ? "true" : undefined}
         className={cn(
-          "flex h-10 w-full rounded-[var(--radius-md)] border border-[var(--input)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)]",
+          "flex h-9 w-full rounded-[var(--radius-md)] border border-[var(--input)] border-input/60 bg-[var(--background)] px-3 py-1 text-sm text-[var(--foreground)] shadow-xs",
           "placeholder:text-[var(--muted-foreground)] transition-colors",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)]",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--background)]",
           "disabled:cursor-not-allowed disabled:opacity-50",
           invalid &&
             "border-[var(--destructive)] focus-visible:ring-[var(--destructive)]",

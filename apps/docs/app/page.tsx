@@ -80,124 +80,140 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-[var(--primary-foreground)]">
-      {/* Sticky Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-[var(--border)] bg-[var(--background)]/85 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-4 sm:px-8">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      {/* Sticky Compact Header (h-14 shadcn standard) */}
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="max-w-7xl mx-auto flex h-14 items-center justify-between px-4 sm:px-8">
           <div className="flex items-center gap-6">
-            <a href="/" className="flex items-center gap-2.5 font-bold text-lg tracking-tight hover:opacity-90 transition-opacity">
-              <span className="flex h-8 w-8 items-center justify-center rounded-[var(--radius-md)] bg-[var(--primary)] text-[var(--primary-foreground)]">
-                <SparklesIcon size={18} />
+            <a href="/" className="flex items-center gap-2 font-semibold text-base tracking-tight hover:opacity-90 transition-opacity">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary text-primary-foreground shadow-xs">
+                <SparklesIcon size={15} />
               </span>
               <span>Kunemi UI</span>
-              <Badge variant="outline" className="text-[10px] uppercase font-mono px-1.5 py-0">
-                v0.1.0
-              </Badge>
+              <span className="rounded-full bg-muted/60 px-2 py-0.5 text-[10px] font-mono text-muted-foreground border border-border/50">
+                v0.1.1
+              </span>
             </a>
 
-            <nav className="hidden md:flex items-center gap-5 text-sm font-medium text-[var(--muted-foreground)]">
-              <a href="#primitives" className="hover:text-[var(--foreground)] transition-colors">Primitives</a>
-              <a href="#ai-native" className="hover:text-[var(--foreground)] transition-colors">AI Suite</a>
-              <a href="#blocks" className="hover:text-[var(--foreground)] transition-colors">Blocks</a>
-              <a href="#tokens" className="hover:text-[var(--foreground)] transition-colors">Tokens</a>
-              <a href="#registry" className="hover:text-[var(--foreground)] transition-colors">Registry</a>
+            <nav className="hidden md:flex items-center gap-5 text-sm font-medium text-muted-foreground">
+              <a href="#primitives" className="hover:text-foreground transition-colors">Primitives</a>
+              <a href="#ai-native" className="hover:text-foreground transition-colors">AI Suite</a>
+              <a href="#blocks" className="hover:text-foreground transition-colors">Blocks</a>
+              <a href="#tokens" className="hover:text-foreground transition-colors">Tokens</a>
+              <a href="#registry" className="hover:text-foreground transition-colors">Registry</a>
             </nav>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Quick Command Palette Search Pill */}
+            <button
+              type="button"
+              onClick={() => alert("Command search shortcut (⌘K) — ready for docs integration!")}
+              className="hidden sm:inline-flex relative h-8 w-44 lg:w-56 justify-between items-center rounded-lg border border-input/60 bg-muted/40 hover:bg-muted/70 px-2.5 text-xs text-muted-foreground transition-colors cursor-pointer"
+            >
+              <span>Search docs...</span>
+              <kbd className="pointer-events-none rounded border border-border/60 bg-background px-1.5 font-mono text-[10px] text-muted-foreground shadow-2xs">
+                ⌘K
+              </kbd>
+            </button>
+
             <a
               href="https://github.com/adeyemiadekunle/kunemi-ui"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-[var(--radius-md)] border border-[var(--border)] hover:bg-[var(--muted)] transition-colors"
+              className="inline-flex h-8 items-center gap-1.5 text-xs font-medium px-2.5 rounded-lg border border-border/40 hover:bg-muted transition-colors"
             >
-              <span>GitHub</span>
               <ExternalLinkIcon size={12} />
+              <span className="hidden sm:inline">GitHub</span>
             </a>
-            <ThemeToggle />
+
+            <ThemeToggle className="h-8 w-8 rounded-lg border border-border/40" />
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20 sm:py-28 border-b border-[var(--border)] bg-gradient-to-b from-[var(--muted)]/20 to-transparent">
-        <div className="max-w-5xl mx-auto px-4 sm:px-8 text-center space-y-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--background)] px-3.5 py-1 text-xs font-medium text-[var(--muted-foreground)] shadow-xs">
-            <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+      <section className="relative overflow-hidden py-16 sm:py-24 border-b border-border/40 bg-gradient-to-b from-muted/20 via-background to-background">
+        <div className="max-w-4xl mx-auto px-4 sm:px-8 text-center space-y-6">
+          {/* Announcement Pill */}
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted/50 hover:bg-muted/80 px-3 py-1 text-xs font-medium text-foreground transition-colors shadow-xs">
+            <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
             <span>WCAG 2.2 AA Contrast Certified & Base UI Powered</span>
+            <ExternalLinkIcon size={10} className="text-muted-foreground" />
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-[var(--foreground)]">
+          {/* Editorial H1 Heading */}
+          <h1 className="text-balance text-4xl sm:text-6xl lg:text-7xl font-semibold tracking-tighter leading-[1.08] text-foreground">
             The Accessible & AI-Native <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-[var(--primary)] via-[var(--foreground)] to-[var(--muted-foreground)] bg-clip-text text-transparent">
-              Design System for React
-            </span>
+            Design System for React
           </h1>
 
-          <p className="max-w-2xl mx-auto text-base sm:text-lg text-[var(--muted-foreground)] leading-relaxed">
+          <p className="max-w-2xl mx-auto text-balance text-base sm:text-lg text-muted-foreground font-normal leading-relaxed">
             Engineered on top of headless <strong>Base UI</strong> primitives and styled with <strong>Tailwind CSS v4</strong>.
             Distributable via <strong>shadcn registry</strong> and ready for autonomous coding agents.
           </p>
 
-          {/* Quick Install Bar */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
-            <div className="w-full flex items-center justify-between rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)] px-3.5 py-2.5 font-mono text-xs shadow-xs text-left">
-              <span className="text-[var(--muted-foreground)] select-none mr-2">$</span>
-              <span className="truncate text-[var(--foreground)]">{registryInstallCmd}</span>
+          {/* Quick Install Bar & CTA Pair */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+            <a href="#primitives">
+              <Button size="md" className="rounded-full px-5 h-9 shadow-xs">
+                Explore Primitives
+              </Button>
+            </a>
+            <div className="flex items-center rounded-full border border-border/60 bg-muted/40 hover:bg-muted/60 px-3.5 py-1.5 font-mono text-xs text-foreground transition-colors shadow-2xs">
+              <span className="text-muted-foreground select-none mr-2">$</span>
+              <span className="truncate max-w-[260px] sm:max-w-none">{registryInstallCmd}</span>
               <button
                 type="button"
                 onClick={copyToClipboard}
-                className="ml-2 text-[var(--muted-foreground)] hover:text-[var(--foreground)] cursor-pointer"
+                className="ml-2 text-muted-foreground hover:text-foreground cursor-pointer"
                 title="Copy install command"
               >
                 {copied ? <CheckIcon size={14} className="text-emerald-500" /> : <CopyIcon size={14} />}
               </button>
             </div>
-            <a href="#primitives" className="w-full sm:w-auto">
-              <Button className="w-full">Explore Primitives</Button>
-            </a>
           </div>
 
-          {/* Key Metrics Row */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-8 max-w-3xl mx-auto">
-            <div className="p-3.5 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)] text-left">
-              <div className="text-2xl font-bold">14 + 4</div>
-              <div className="text-xs text-[var(--muted-foreground)] font-medium">P0 & P1 Primitives</div>
+          {/* Key Metrics Bento Strip */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 max-w-3xl mx-auto">
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card/60 shadow-xs text-left">
+              <div className="text-2xl font-bold tracking-tight">14 + 4</div>
+              <div className="text-xs text-muted-foreground font-medium mt-0.5">P0 & P1 Primitives</div>
             </div>
-            <div className="p-3.5 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)] text-left">
-              <div className="text-2xl font-bold">75</div>
-              <div className="text-xs text-[var(--muted-foreground)] font-medium">Passing Tests (100%)</div>
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card/60 shadow-xs text-left">
+              <div className="text-2xl font-bold tracking-tight">75</div>
+              <div className="text-xs text-muted-foreground font-medium mt-0.5">Passing Tests (100%)</div>
             </div>
-            <div className="p-3.5 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)] text-left">
-              <div className="text-2xl font-bold">24</div>
-              <div className="text-xs text-[var(--muted-foreground)] font-medium">Registry Manifests</div>
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card/60 shadow-xs text-left">
+              <div className="text-2xl font-bold tracking-tight">24</div>
+              <div className="text-xs text-muted-foreground font-medium mt-0.5">Registry Manifests</div>
             </div>
-            <div className="p-3.5 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)] text-left">
-              <div className="text-2xl font-bold">≥ 4.5:1</div>
-              <div className="text-xs text-[var(--muted-foreground)] font-medium">WCAG 2.2 AA Contrast</div>
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card/60 shadow-xs text-left">
+              <div className="text-2xl font-bold tracking-tight">≥ 4.5:1</div>
+              <div className="text-xs text-muted-foreground font-medium mt-0.5">WCAG 2.2 AA Contrast</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Main Interactive Showcase */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-8 py-16 space-y-20">
+      <main className="max-w-6xl mx-auto px-4 sm:px-8 py-14 space-y-16">
 
         {/* Section 1: Core Primitives */}
         <section id="primitives" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[var(--border)] pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-border/40 pb-4">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight">Core UI Primitives</h2>
-              <p className="text-sm text-[var(--muted-foreground)] mt-1">
+              <h2 className="text-2xl font-semibold tracking-tight">Core UI Primitives</h2>
+              <p className="text-sm text-muted-foreground mt-1">
                 Headless focus, accessibility, and keyboard loops powered by Base UI.
               </p>
             </div>
-            <Badge variant="outline">P0 + P1 Primitives</Badge>
+            <Badge variant="outline" className="border-border/60">P0 + P1 Primitives</Badge>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Buttons Showcase */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle>Button Variants & States</CardTitle>
                 <CardDescription>WCAG compliant contrast, active state, and loading spinners</CardDescription>
@@ -211,7 +227,7 @@ export default function HomePage() {
                   <Button variant="destructive">Destructive</Button>
                   <Button variant="primary" loading>Loading</Button>
                 </div>
-                <div className="flex items-center gap-2 pt-2 border-t border-[var(--border)]">
+                <div className="flex items-center gap-2 pt-2 border-t border-border/40">
                   <Button size="sm">Small</Button>
                   <Button size="md">Medium</Button>
                   <Button size="lg">Large</Button>
@@ -221,7 +237,7 @@ export default function HomePage() {
             </Card>
 
             {/* Form Controls */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle>Form Controls & Labels</CardTitle>
                 <CardDescription>Associated accessible labels, required indicator, and error states</CardDescription>
@@ -258,7 +274,7 @@ export default function HomePage() {
             </Card>
 
             {/* Overlays & Dialog */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle>Overlays & Modals</CardTitle>
                 <CardDescription>Base UI Dialog with focus trap, backdrop blur, and dismiss mechanics</CardDescription>
@@ -295,23 +311,23 @@ export default function HomePage() {
             </Card>
 
             {/* Data Table */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle>Data Table & Status</CardTitle>
                 <CardDescription>Accessible tabular view styled with semantic theme borders</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="rounded-[var(--radius-md)] border border-[var(--border)] overflow-hidden">
+                <div className="rounded-lg border border-border/40 overflow-hidden">
                   <Table>
                     <TableHeader>
-                      <TableRow>
+                      <TableRow className="border-b border-border/40">
                         <TableHead>Service</TableHead>
                         <TableHead>Environment</TableHead>
                         <TableHead>Status</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      <TableRow>
+                      <TableRow className="border-b border-border/40">
                         <TableCell className="font-medium">Inference Gateway</TableCell>
                         <TableCell>Production</TableCell>
                         <TableCell><Badge variant="success">Active</Badge></TableCell>
@@ -336,18 +352,18 @@ export default function HomePage() {
             </Card>
 
             {/* Feedback & Status */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle>Feedback & Status</CardTitle>
                 <CardDescription>Alerts, animated skeletons, and separators</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <Alert variant="default">
+                <Alert variant="default" className="border-border/40">
                   <InfoIcon size={16} />
                   <AlertTitle>System Notice</AlertTitle>
                   <AlertDescription>Tokens loaded with WCAG 2.2 AA compliant contrast.</AlertDescription>
                 </Alert>
-                <Separator />
+                <Separator className="bg-border/40" />
                 <div className="space-y-2">
                   <Skeleton className="h-4 w-3/4" />
                   <Skeleton className="h-4 w-1/2" />
@@ -356,7 +372,7 @@ export default function HomePage() {
             </Card>
 
             {/* Tabbed Navigation */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle>Tabbed Navigation</CardTitle>
                 <CardDescription>Accessible keyboard-navigated tab panels</CardDescription>
@@ -368,13 +384,13 @@ export default function HomePage() {
                     <TabsTrigger value="anatomy">Anatomy</TabsTrigger>
                     <TabsTrigger value="guidelines">Guidelines</TabsTrigger>
                   </TabsList>
-                  <TabsContent value="overview" className="text-sm text-[var(--muted-foreground)] pt-3">
+                  <TabsContent value="overview" className="text-sm text-muted-foreground pt-3">
                     Headless keyboard loops adhering to W3C APG patterns.
                   </TabsContent>
-                  <TabsContent value="anatomy" className="text-sm text-[var(--muted-foreground)] pt-3">
+                  <TabsContent value="anatomy" className="text-sm text-muted-foreground pt-3">
                     Composed with Base UI TabsList and TabsTrigger primitives.
                   </TabsContent>
-                  <TabsContent value="guidelines" className="text-sm text-[var(--muted-foreground)] pt-3">
+                  <TabsContent value="guidelines" className="text-sm text-muted-foreground pt-3">
                     Supports automatic arrow key navigation and focus trapping.
                   </TabsContent>
                 </Tabs>
@@ -385,10 +401,10 @@ export default function HomePage() {
 
         {/* Section 2: AI-Native Suite */}
         <section id="ai-native" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[var(--border)] pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-border/40 pb-4">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight">AI-Native Interface Suite</h2>
-              <p className="text-sm text-[var(--muted-foreground)] mt-1">
+              <h2 className="text-2xl font-semibold tracking-tight">AI-Native Interface Suite</h2>
+              <p className="text-sm text-muted-foreground mt-1">
                 Components designed specifically for LLM and autonomous coding agent interfaces.
               </p>
             </div>
@@ -397,7 +413,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Prompt Composer */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BotIcon size={18} />
@@ -416,7 +432,7 @@ export default function HomePage() {
             </Card>
 
             {/* Tool Status Lifecycle */}
-            <Card>
+            <Card className="rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <SparklesIcon size={18} />
@@ -446,7 +462,7 @@ export default function HomePage() {
             </Card>
 
             {/* Approval Gate */}
-            <Card className="md:col-span-2">
+            <Card className="md:col-span-2 rounded-xl border border-border/40 bg-card shadow-xs">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertTriangleIcon size={18} className="text-amber-500" />
@@ -468,7 +484,7 @@ export default function HomePage() {
                     onReject={() => setApprovalLog("Rejected at " + new Date().toLocaleTimeString())}
                   />
                   {approvalLog && (
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs border-border/60">
                       Last Decision: {approvalLog}
                     </Badge>
                   )}
@@ -480,14 +496,14 @@ export default function HomePage() {
 
         {/* Section 3: Composed Blocks */}
         <section id="blocks" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[var(--border)] pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-border/40 pb-4">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight">Composed Application Blocks</h2>
-              <p className="text-sm text-[var(--muted-foreground)] mt-1">
+              <h2 className="text-2xl font-semibold tracking-tight">Composed Application Blocks</h2>
+              <p className="text-sm text-muted-foreground mt-1">
                 Ready-to-use patterns composed from core primitives and tokens.
               </p>
             </div>
-            <Badge variant="outline">@kunemi-ui/blocks</Badge>
+            <Badge variant="outline" className="border-border/60">@kunemi-ui/blocks</Badge>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -518,10 +534,10 @@ export default function HomePage() {
 
         {/* Section 4: Design Tokens & Contrast Matrix */}
         <section id="tokens" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[var(--border)] pb-4">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-border/40 pb-4">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight">WCAG 2.2 AA Contrast Tokens</h2>
-              <p className="text-sm text-[var(--muted-foreground)] mt-1">
+              <h2 className="text-2xl font-semibold tracking-tight">WCAG 2.2 AA Contrast Tokens</h2>
+              <p className="text-sm text-muted-foreground mt-1">
                 Zero hardcoded colors. All tokens adapt dynamically across light and dark modes.
               </p>
             </div>
@@ -529,47 +545,47 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            <div className="p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--background)]">
-              <div className="h-8 rounded bg-[var(--background)] border border-[var(--border)] mb-2" />
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card shadow-xs">
+              <div className="h-8 rounded-lg bg-background border border-border/60 mb-2" />
               <div className="text-xs font-mono font-medium">--background</div>
             </div>
-            <div className="p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)]">
-              <div className="h-8 rounded bg-[var(--foreground)] mb-2" />
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card shadow-xs">
+              <div className="h-8 rounded-lg bg-foreground mb-2" />
               <div className="text-xs font-mono font-medium">--foreground</div>
             </div>
-            <div className="p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)]">
-              <div className="h-8 rounded bg-[var(--primary)] mb-2" />
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card shadow-xs">
+              <div className="h-8 rounded-lg bg-primary mb-2" />
               <div className="text-xs font-mono font-medium">--primary</div>
             </div>
-            <div className="p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)]">
-              <div className="h-8 rounded bg-[var(--secondary)] mb-2" />
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card shadow-xs">
+              <div className="h-8 rounded-lg bg-secondary mb-2" />
               <div className="text-xs font-mono font-medium">--secondary</div>
             </div>
-            <div className="p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)]">
-              <div className="h-8 rounded bg-[var(--destructive)] mb-2" />
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card shadow-xs">
+              <div className="h-8 rounded-lg bg-destructive mb-2" />
               <div className="text-xs font-mono font-medium">--destructive</div>
             </div>
-            <div className="p-3 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--card)]">
-              <div className="h-8 rounded bg-[var(--muted)] mb-2" />
+            <div className="p-3.5 rounded-xl border border-border/40 bg-card shadow-xs">
+              <div className="h-8 rounded-lg bg-muted mb-2" />
               <div className="text-xs font-mono font-medium">--muted</div>
             </div>
           </div>
         </section>
 
         {/* Section 5: AI Discoverability & Registry */}
-        <section id="registry" className="p-8 rounded-[var(--radius-lg)] border border-[var(--border)] bg-[var(--card)] space-y-4">
+        <section id="registry" className="p-8 rounded-xl border border-border/40 bg-card shadow-xs space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold tracking-tight">AI Coding Agent Discoverability</h2>
-            <Badge variant="outline">llms.txt + AGENTS.md</Badge>
+            <h2 className="text-xl font-semibold tracking-tight">AI Coding Agent Discoverability</h2>
+            <Badge variant="outline" className="border-border/60">llms.txt + AGENTS.md</Badge>
           </div>
-          <p className="text-sm text-[var(--muted-foreground)]">
+          <p className="text-sm text-muted-foreground">
             Kunemi UI includes machine-readable guidelines for autonomous agents such as Antigravity, Claude Code, Cursor, and Codex:
           </p>
           <div className="flex flex-wrap gap-3 pt-2">
             <a
               href="/llms.txt"
               target="_blank"
-              className="text-xs font-mono font-medium px-3 py-2 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--background)] hover:bg-[var(--muted)] flex items-center gap-1.5"
+              className="text-xs font-mono font-medium px-3 py-2 rounded-lg border border-border/40 bg-background hover:bg-muted flex items-center gap-1.5 transition-colors"
             >
               <span>/llms.txt</span>
               <ExternalLinkIcon size={12} />
@@ -577,7 +593,7 @@ export default function HomePage() {
             <a
               href="/llms-full.txt"
               target="_blank"
-              className="text-xs font-mono font-medium px-3 py-2 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--background)] hover:bg-[var(--muted)] flex items-center gap-1.5"
+              className="text-xs font-mono font-medium px-3 py-2 rounded-lg border border-border/40 bg-background hover:bg-muted flex items-center gap-1.5 transition-colors"
             >
               <span>/llms-full.txt</span>
               <ExternalLinkIcon size={12} />
@@ -585,7 +601,7 @@ export default function HomePage() {
             <a
               href="/r/index.json"
               target="_blank"
-              className="text-xs font-mono font-medium px-3 py-2 rounded-[var(--radius-md)] border border-[var(--border)] bg-[var(--background)] hover:bg-[var(--muted)] flex items-center gap-1.5"
+              className="text-xs font-mono font-medium px-3 py-2 rounded-lg border border-border/40 bg-background hover:bg-muted flex items-center gap-1.5 transition-colors"
             >
               <span>/r/index.json</span>
               <ExternalLinkIcon size={12} />
@@ -596,7 +612,7 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-[var(--border)] py-8 text-center text-xs text-[var(--muted-foreground)] space-y-2">
+      <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground space-y-2">
         <p>Built with Base UI primitives and Tailwind CSS v4. WCAG 2.2 AA Certified.</p>
         <p>MIT License © {new Date().getFullYear()} Adekunle Adeyemi</p>
       </footer>
