@@ -37,6 +37,29 @@ import {
   ToolStatus,
   ApprovalDialog,
   ThemeToggle,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationPrevious,
+  PaginationNext,
+  Menu,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  Skeleton,
+  Separator,
 } from "@kunemi-ui/ui";
 import { AuthCard, MetricCard, AIChatBlock } from "@kunemi-ui/blocks";
 import {
@@ -397,7 +420,31 @@ export default function PlaygroundPage() {
                 </AlertDescription>
               </Alert>
 
-              <div>
+              <Separator />
+
+              {/* Overlays & Interactive Navigation */}
+              <div className="flex flex-wrap items-center gap-4">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger render={<Button variant="secondary">Hover for Tooltip</Button>} />
+                    <TooltipContent>
+                      Keyboard and pointer accessible floating tooltip
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+
+                <Menu>
+                  <MenuTrigger render={<Button variant="outline">Actions Menu</Button>} />
+                  <MenuContent>
+                    <MenuItem onClick={() => alert("Exported JSON")}>Export as JSON</MenuItem>
+                    <MenuItem onClick={() => alert("Copied URL")}>Copy Direct Link</MenuItem>
+                    <MenuSeparator />
+                    <MenuItem className="text-[var(--destructive)]" onClick={() => alert("Purged")}>
+                      Purge Cache
+                    </MenuItem>
+                  </MenuContent>
+                </Menu>
+
                 <Dialog>
                   <DialogTrigger render={<Button variant="outline">Test Modal Dialog</Button>} />
                   <DialogPortal>
@@ -413,6 +460,75 @@ export default function PlaygroundPage() {
                     </DialogPopup>
                   </DialogPortal>
                 </Dialog>
+              </div>
+
+              <Separator />
+
+              {/* Data Table & Pagination */}
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold">Accessible Data Table</h4>
+                <div className="border rounded-[var(--radius-md)] overflow-hidden">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Service</TableHead>
+                        <TableHead>Environment</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="text-right">Latency</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell className="font-medium">Inference Gateway</TableCell>
+                        <TableCell>Production (US-East)</TableCell>
+                        <TableCell><Badge variant="success">Healthy</Badge></TableCell>
+                        <TableCell className="text-right">18ms</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-medium">Vector Index</TableCell>
+                        <TableCell>Production (EU-Central)</TableCell>
+                        <TableCell><Badge variant="success">Healthy</Badge></TableCell>
+                        <TableCell className="text-right">24ms</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell className="font-medium">Worker Container</TableCell>
+                        <TableCell>Staging</TableCell>
+                        <TableCell><Badge variant="secondary">Idle</Badge></TableCell>
+                        <TableCell className="text-right">4ms</TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious href="#" />
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#" isActive>1</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationLink href="#">2</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                      <PaginationNext href="#" />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+
+              <Separator />
+
+              {/* Skeleton Loaders */}
+              <div className="space-y-3">
+                <h4 className="text-sm font-semibold">Skeleton Loaders</h4>
+                <div className="flex items-center space-x-4">
+                  <Skeleton className="h-12 w-12 rounded-full" />
+                  <div className="space-y-2 flex-1">
+                    <Skeleton className="h-4 w-3/4" />
+                    <Skeleton className="h-4 w-1/2" />
+                  </div>
+                </div>
               </div>
             </CardContent>
           </Card>
