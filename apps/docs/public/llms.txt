@@ -1,0 +1,57 @@
+# Kunemi UI
+
+> Kunemi UI is an accessible, extensible, and AI-native React design system built on Base UI primitives, styled with Tailwind CSS v4 and semantic CSS variables, and distributed via a shadcn-compatible registry.
+
+## Core Rules for AI Coding Agents
+- Never bypass Base UI primitives for stable interactive widgets (dialog, select, tooltip, etc.).
+- Never hardcode colors or hex values. Always use semantic CSS variable classes (`bg-[var(--background)]`, `text-[var(--foreground)]`, `border-[var(--border)]`, etc.).
+- Isolation: Never import `@kunemi-ui/behaviors` inside `@kunemi-ui/ui`.
+- All interactive components must support keyboard interaction, visible focus rings, ARIA roles/states, and WCAG 2.2 AA contrast compliance.
+
+## Registry & Installation
+Kunemi UI components can be installed into consumer projects using the shadcn CLI:
+
+```bash
+# Add components via registry URL
+npx shadcn@latest add https://kunemi-ui.dev/r/button.json
+npx shadcn@latest add https://kunemi-ui.dev/r/dialog.json
+npx shadcn@latest add https://kunemi-ui.dev/r/prompt-input.json
+```
+
+Registry Manifest Index: https://kunemi-ui.dev/r/index.json
+
+## Available Components
+- `button`: Primary, secondary, outline, ghost, destructive variants with size support.
+- `input`: Accessible text input with focus rings and error states.
+- `label`: Accessible label with optional required indicator.
+- `checkbox`: Accessible checkbox backed by Base UI Checkbox primitive.
+- `switch`: Accessible switch toggle backed by Base UI Switch primitive.
+- `dialog`: Modal dialog with overlay, portal, title, description, and close mechanics.
+- `select`: Dropdown select with portal, popup, items, and roving focus.
+- `tooltip`: Accessible floating tooltip with customizable placement and delays.
+- `tabs`: Accessible tabbed navigation with list, trigger, and content panels.
+- `badge`: Status and categorization badge with semantic variant styling.
+- `card`: Surface container with header, title, description, content, and footer.
+- `alert`: Accessible banner alert for informational, warning, and error messages.
+- `skeleton`: Loading state placeholder with pulse animation.
+- `separator`: Semantic horizontal and vertical dividers.
+- `table`: Full HTML table suite (Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption).
+- `pagination`: Full pagination controls (Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis).
+- `toast`: Zero-dependency notification toast with title, description, and action.
+- `menu`: Context and dropdown menu suite with items, triggers, and separators.
+
+## AI-Native Building Blocks
+- `prompt-input`: Expandable AI prompt composer with keyboard submission (Enter to submit, Shift+Enter for newline) and submit/cancel controls.
+- `tool-status`: Tool execution lifecycle badge and collapsible details (`queued`, `running`, `succeeded`, `failed`, `cancelled`).
+- `approval-dialog`: Consequential action confirmation modal with danger level indicator and explicit affirmative confirmation.
+
+## Composed Blocks
+- `AuthCard`: Complete sign-in / registration card pattern with email and password inputs.
+- `MetricCard`: KPI / Analytics dashboard metric block with value, delta, and subtitle.
+- `AIChatBlock`: AI chat view combining prompt composer, streamed responses, and agent tool execution status.
+
+## Verification Commands
+Before concluding turns when working on Kunemi UI:
+- `pnpm typecheck`
+- `pnpm lint`
+- `pnpm test`

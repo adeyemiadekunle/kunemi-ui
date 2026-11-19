@@ -6,7 +6,31 @@ import { cn } from "../lib/utils";
 
 export const Select = BaseSelect.Root;
 export const SelectGroup = BaseSelect.Group;
-export const SelectValue = BaseSelect.Value;
+
+export interface SelectValueProps
+  extends React.ComponentPropsWithoutRef<typeof BaseSelect.Value> {
+  placeholder?: string;
+}
+
+export const SelectValue = React.forwardRef<HTMLSpanElement, SelectValueProps>(
+  ({ placeholder, children, ...props }, ref) => (
+    <BaseSelect.Value ref={ref} {...props}>
+      {(value: unknown) => {
+        if (typeof children === "function") {
+          return (children as (val: unknown) => React.ReactNode)(value);
+        }
+        if (children !== undefined) {
+          return children;
+        }
+        if (value === undefined || value === null || value === "") {
+          return placeholder ?? null;
+        }
+        return String(value);
+      }}
+    </BaseSelect.Value>
+  )
+);
+SelectValue.displayName = "SelectValue";
 
 export const SelectTrigger = React.forwardRef<
   HTMLButtonElement,

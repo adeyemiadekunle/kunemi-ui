@@ -248,6 +248,15 @@ importers:
 
   apps/playground:
     dependencies:
+      '@kunemi-ui/behaviors':
+        specifier: workspace:*
+        version: link:../../packages/behaviors
+      '@kunemi-ui/blocks':
+        specifier: workspace:*
+        version: link:../../packages/blocks
+      '@kunemi-ui/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@kunemi-ui/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
@@ -276,6 +285,12 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.3.0(@types/react@19.3.0)
+      postcss:
+        specifier: ^8.4.0
+        version: 8.5.33
+      tailwindcss:
+        specifier: ^4.0.0
+        version: 4.3.5
       typescript:
         specifier: ^5.7.0
         version: 5.9.3

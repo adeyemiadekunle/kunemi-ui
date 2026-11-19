@@ -1,0 +1,266 @@
+# Kunemi UI — Complete Technical Reference
+
+> Accessible, extensible, and AI-native React design system built on Base UI primitives, styled with Tailwind CSS v4 and semantic CSS variables, and distributed via a shadcn-compatible registry.
+
+---
+
+## 1. Design Tokens & Theme Foundation
+
+Kunemi UI uses certified WCAG 2.2 AA contrast pairings mapped to CSS variables. All colors adapt seamlessly across `light` and `dark` themes.
+
+### Semantic CSS Variables
+```css
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --popover: #ffffff;
+  --popover-foreground: #09090b;
+  --primary: #18181b;
+  --primary-foreground: #fafafa;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a;
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #e4e4e7;
+  --input: #e4e4e7;
+  --ring: #18181b;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+  --primary: #fafafa;
+  --primary-foreground: #18181b;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #27272a;
+  --muted-foreground: #a1a1aa;
+  --accent: #27272a;
+  --accent-foreground: #fafafa;
+  --destructive: #7f1d1d;
+  --destructive-foreground: #fafafa;
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #d4d4d8;
+}
+```
+
+### Theme Provider Usage
+```tsx
+import { ThemeProvider } from "@kunemi-ui/ui";
+
+export function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body>
+        <ThemeProvider defaultTheme="system" storageKey="kunemi-theme">
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+## 2. Component API Reference
+
+### Button
+```tsx
+import { Button } from "@kunemi-ui/ui";
+
+<Button variant="default">Save</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="outline">Preview</Button>
+<Button variant="ghost">Clear</Button>
+<Button variant="destructive">Delete</Button>
+<Button size="sm">Small</Button>
+<Button size="lg">Large</Button>
+<Button size="icon" aria-label="Settings"><SettingsIcon /></Button>
+```
+
+### Input & Label
+```tsx
+import { Input, Label } from "@kunemi-ui/ui";
+
+<div>
+  <Label htmlFor="email" requiredIndicator>Email Address</Label>
+  <Input id="email" type="email" placeholder="you@domain.com" />
+</div>
+```
+
+### Checkbox & Switch
+```tsx
+import { Checkbox, Switch, Label } from "@kunemi-ui/ui";
+
+<div className="flex items-center gap-2">
+  <Checkbox id="terms" />
+  <Label htmlFor="terms">Accept conditions</Label>
+</div>
+
+<div className="flex items-center gap-2">
+  <Switch id="stream-mode" />
+  <Label htmlFor="stream-mode">Enable live streaming</Label>
+</div>
+```
+
+### Dialog
+```tsx
+import {
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogBackdrop,
+  DialogPopup,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+  Button,
+} from "@kunemi-ui/ui";
+
+<Dialog>
+  <DialogTrigger render={<Button>Open Dialog</Button>} />
+  <DialogPortal>
+    <DialogBackdrop />
+    <DialogPopup>
+      <DialogTitle>Confirm Action</DialogTitle>
+      <DialogDescription>
+        This action cannot be undone. Are you sure you wish to proceed?
+      </DialogDescription>
+      <div className="flex justify-end gap-2 mt-4">
+        <DialogClose render={<Button variant="outline">Cancel</Button>} />
+        <Button variant="destructive">Confirm</Button>
+      </div>
+    </DialogPopup>
+  </DialogPortal>
+</Dialog>
+```
+
+### Select
+```tsx
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@kunemi-ui/ui";
+
+<Select defaultValue="gpt4">
+  <SelectTrigger className="w-[180px]">
+    <SelectValue placeholder="Select model" />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="gpt4">GPT-4o</SelectItem>
+    <SelectItem value="claude">Claude 3.5 Sonnet</SelectItem>
+    <SelectItem value="gemini">Gemini 2.0 Flash</SelectItem>
+  </SelectContent>
+</Select>
+```
+
+### PromptInput (AI-Native)
+```tsx
+import { PromptInput } from "@kunemi-ui/ui";
+
+<PromptInput
+  placeholder="Ask anything (Enter to submit, Shift+Enter for newline)..."
+  onSubmit={(val) => console.log("Submitted:", val)}
+  onCancel={() => console.log("Cancelled")}
+  isLoading={false}
+/>
+```
+
+### ToolStatus (AI-Native)
+```tsx
+import { ToolStatus } from "@kunemi-ui/ui";
+
+<ToolStatus
+  toolName="Database Query"
+  status="running"
+  args={{ sql: "SELECT * FROM users LIMIT 10" }}
+/>
+<ToolStatus
+  toolName="File Search"
+  status="succeeded"
+  result={{ matchCount: 42 }}
+/>
+```
+
+### ApprovalDialog (AI-Native)
+```tsx
+import { ApprovalDialog } from "@kunemi-ui/ui";
+
+<ApprovalDialog
+  actionName="Deploy Production Container"
+  description="This will roll out revision v2.4.0 to all production nodes."
+  dangerLevel="high"
+  onApprove={() => console.log("Approved")}
+  onReject={() => console.log("Rejected")}
+/>
+```
+
+---
+
+## 3. Composed Application Blocks
+
+### AuthCard
+```tsx
+import { AuthCard } from "@kunemi-ui/blocks";
+
+<AuthCard
+  title="Sign in to Kunemi"
+  description="Enter your email below to access your account"
+  onSubmit={(email, password) => console.log({ email, password })}
+/>
+```
+
+### MetricCard
+```tsx
+import { MetricCard } from "@kunemi-ui/blocks";
+
+<MetricCard
+  title="Active Tokens"
+  value="1,420,850"
+  delta="+18.4%"
+  deltaType="positive"
+  subtitle="vs previous billing cycle"
+/>
+```
+
+### AIChatBlock
+```tsx
+import { AIChatBlock } from "@kunemi-ui/blocks";
+
+<AIChatBlock
+  messages={[
+    { id: "1", role: "user", content: "Can you analyze our tokens?" },
+    { id: "2", role: "assistant", content: "All tokens conform to WCAG 2.2 AA." }
+  ]}
+  toolInvocations={[
+    { id: "t1", toolName: "TokenAnalyzer", status: "succeeded" }
+  ]}
+  onSendMessage={(prompt) => console.log("User sent:", prompt)}
+/>
+```
+
+---
+
+## 4. Experimental Behaviors (`@kunemi-ui/behaviors`)
+
+Package: `@kunemi-ui/behaviors` (isolated from `@kunemi-ui/ui`).
+
+- `useSelectionModel`: Multi-item selection manager with shift-click range select, cmd/ctrl toggle, select-all, and ARIA bindings.
+- `useStreamResponse`: AI stream consumer state machine with buffered chunks, polite throttled live-region updates, sentence boundary flushes, error handling, and cancellation.
+- `useTreeNavigation`: Hierarchical tree navigation with W3C APG arrow navigation, expand/collapse, and ARIA treeitem properties.
